@@ -7,6 +7,7 @@ class Duplicates
   attr_reader :files, :duplicates
 
   def initialize(start_dir)
+    raise ArgumentError, "#{start_dir} is not correct directory name!" unless File.directory?(start_dir)
     @start_dir = start_dir
     @files = Array.new()
     @md5 = Hash.new()
@@ -68,10 +69,10 @@ class Duplicates
   # search for duplicates
 
   def search_for_duplicates
-    d_md5 = Hash[@md5.sort - @md5.invert.invert.sort].invert.keys.sort # loads of inversion :]
+    d_md5 = Hash[@md5.sort - @md5.invert.invert.sort].invert.keys.sort
     @duplicates = @md5.dup
     @duplicates.delete_if {|k,v| not(d_md5.include?(v))}
     @duplicates = Hash[@duplicates.sort_by {|k,v| v}]
   end
 
- end
+end
