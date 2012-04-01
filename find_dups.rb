@@ -29,9 +29,9 @@ class Duplicates
     end
     return nil
   end
-  
+
   # list all files & their md5s
-  
+
   def list_all(include_subfolders = false)
     @include_subfolders = include_subfolders
     load_files
@@ -68,7 +68,7 @@ class Duplicates
   # search for duplicates
 
   def search_for_duplicates
-    d_md5 = Hash[@md5.sort - @md5.invert.invert.sort].invert.keys.sort
+    d_md5 = Hash[@md5.sort - @md5.invert.invert.sort].invert.keys.sort # loads of inversion :]
     @duplicates = @md5.dup
     @duplicates.delete_if {|k,v| not(d_md5.include?(v))}
     @duplicates = Hash[@duplicates.sort_by {|k,v| v}]
