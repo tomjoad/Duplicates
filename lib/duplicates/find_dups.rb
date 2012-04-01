@@ -29,9 +29,9 @@ class Duplicates
     end
     return nil
   end
-  
+
   # list all files & their md5s
-  
+
   def list_all(include_subfolders = false)
     @include_subfolders = include_subfolders
     load_files
